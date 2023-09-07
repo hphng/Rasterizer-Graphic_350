@@ -1,5 +1,6 @@
 #include<iostream>
 #include<vector>
+#include<cmath>
 using namespace std;
 
 int main(){
@@ -8,4 +9,7 @@ int main(){
 
     for(auto i : a)
         cout << i << " ";
+    cout << endl;
+
+    cout << asin(1);
 }
