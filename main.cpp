@@ -15,9 +15,12 @@ int main(){
     Color y = a - b;
     Color z = a * 2.0f;
 
+    Color red = Red;
+    Color black = Black;
+
     x.printColor();
     y.printColor();
     z.printColor();
-
-    
+    red.printColor();
+    black.printColor();
 }
