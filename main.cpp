@@ -2,6 +2,9 @@
 #include<vector>
 #include<cmath>
 #include "Color.cpp"
+#include "Raster.cpp"
+// #include<iostream>
+// #include<fstream>
 using namespace std;
 
 int main(){
@@ -23,4 +26,20 @@ int main(){
     z.printColor();
     red.printColor();
     black.printColor();
+
+    Raster ras = Raster(5, 4, White);
+
+    for(int j = 0; j< 4; j++){
+        for(int i = 0; i < 5; i++){
+            if(j %2 == 0){
+                ras.setColorPixel(i, j, Black);
+            }
+            else{
+                ras.setColorPixel(i, j, White);
+            }
+        }
+    }
+    ras.writeToPPM();
+
+
 }
