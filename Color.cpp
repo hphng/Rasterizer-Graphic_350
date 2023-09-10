@@ -30,7 +30,6 @@ Color Color::operator+(Color c){
     result.green = this -> green + c.green;
     result.blue = this -> blue + c.blue;
     
-    //nghe ngu vai wtf, kieu neu red = 1 va 1 xong green = 0.5 va 0.5 thi result co red = 1 voi green = 1 a
     result.clamp();
     return result;
 }

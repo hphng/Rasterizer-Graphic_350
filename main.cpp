@@ -3,8 +3,6 @@
 #include<cmath>
 #include "Color.cpp"
 #include "Raster.cpp"
-// #include<iostream>
-// #include<fstream>
 using namespace std;
 
 int main(){
@@ -27,18 +25,20 @@ int main(){
     red.printColor();
     black.printColor();
 
-    Raster ras = Raster(5, 4, White);
+    Raster ras = Raster(20, 20, White);
 
-    for(int j = 0; j< 4; j++){
-        for(int i = 0; i < 5; i++){
+    for(int j = 0; j< 20; j++){
+        for(int i = 0; i < 20; i++){
             if(j %2 == 0){
-                ras.setColorPixel(i, j, Black);
+                ras.setColorPixel(i, j, Red);
             }
             else{
-                ras.setColorPixel(i, j, White);
+                ras.setColorPixel(i, j, Red + Green);
             }
         }
     }
+
+    ras.drawLine_DDA(3,3, 7, 21, Red + Green);
     ras.writeToPPM();
 
 
