@@ -49,13 +49,11 @@ void Raster::setColorPixel(int x, int y, Color pFillColor){
 
     int index = ( h-1 - y) * w + x;
 
-    cout << "index is: " << index << endl; 
+    //cout << "index is: " << index << endl; 
 
-    pixels[index].red = pFillColor.red;
-    pixels[index].green = pFillColor.green;
-    pixels[index].blue = pFillColor.blue;
+    pixels[index] = pFillColor;
 
-    pixels[index].printColor();
+    //pixels[index].printColor();
 }
 
 void Raster::clear(Color pFillColor){
@@ -84,5 +82,70 @@ void Raster::writeToPPM(){
     }
 
     MyFile.close();
+
+}
+
+void Raster::swap(float& x1, float& y1, float& x2, float& y2){
+    if(x1 < x2){
+        return;
+    }
+    else{
+        float a = x1;
+        float b = y1;
+        x1 = x2;
+        y1 = y2;
+        x2 = a;
+        y2 = b;
+    }
+}
+
+void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor){
+    //check and resize the value of points which are outside the plane 
+    x1 = fmin(x1, width);
+    x2 = fmin(x2, width);
+    y1 = fmin(y1, height);
+    y2 = fmin(y2, height);
+
+
+    //horizontal line
+    if(y1 == y2){
+        int y = y1;
+        int l = fmin(x1, x2);
+        int r = fmax(x1, x2);
+        for(int i = l; i <=r; i++){
+            setColorPixel(i, y, fillColor);
+        }
+        return;
+    //vertical line
+    } else if(x1 == x2){
+        int x = x1;
+        int b = fmin(y1, y2);
+        int t = fmax(y1, y2);
+        for(int i = b; i <=t; i++){
+            setColorPixel(x, i, fillColor);
+        }
+        return;
+    }
+
+    float m = (y1 - y2)/(x1-x2);
+    float b = y1 - m*x1;
+
+    swap(x1, y1, x2, y2);
+
+    //checking with slope
+    if(abs(m) <= 1){
+        float y = y1;
+        for(int x = x1; x <= x2; x++ ){
+            setColorPixel(x, round(y), fillColor);
+            y+= m;
+        }
+    }else{
+        m = (x2-x1)/(y2-y1);
+        float x = x2;
+        for(int y = y2; y>=y1; y--){
+            setColorPixel(round(x), y, fillColor);
+            x-=m;
+        }
+    }
 
 }
