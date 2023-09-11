@@ -27,19 +27,18 @@ int main(){
 
     Raster ras = Raster(20, 20, White);
 
-    for(int j = 0; j< 20; j++){
-        for(int i = 0; i < 20; i++){
-            if(j %2 == 0){
-                ras.setColorPixel(i, j, Red);
-            }
-            else{
-                ras.setColorPixel(i, j, Red + Green);
-            }
-        }
-    }
+    // for(int j = 0; j< 20; j++){
+    //     for(int i = 0; i < 20; i++){
+    //         if(j %2 == 0){
+    //             ras.setColorPixel(i, j, Red);
+    //         }
+    //         else{
+    //             ras.setColorPixel(i, j, Red + Green);
+    //         }
+    //     }
+    // }
 
-    ras.drawLine_DDA(3,3, 7, 21, Red + Green);
+    ras.drawLine_DDA(-10,-10, -9, -9, Red + Green);
     ras.writeToPPM();
-
-
+    cout << "Aaaaaa";
 }

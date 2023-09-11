@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "Color.h"
+#include <cmath>
 using namespace std;
 
 Raster::Raster(){
@@ -46,7 +47,9 @@ Color Raster::getColorPixel(int x, int y){
 void Raster::setColorPixel(int x, int y, Color pFillColor){
     int w = getWidth();
     int h = getHeight();
-
+    if(x >= w || y >=h || x <0 || y < 0){
+        return;
+    }
     int index = ( h-1 - y) * w + x;
 
     //cout << "index is: " << index << endl; 
@@ -76,13 +79,12 @@ void Raster::writeToPPM(){
     for(int j = h-1; j >= 0; j--){
         for(int i = 0; i < w; i++){
             Color index = getColorPixel(i, j);
-            MyFile << index.red *255 << " " << index.green *255 << " " << index.blue *255 << " ";
+            MyFile << index.red * 255 << " " << index.green * 255 << " " << index.blue * 255 << " ";
         }
         MyFile << endl;
     }
 
     MyFile.close();
-
 }
 
 void Raster::swap(float& x1, float& y1, float& x2, float& y2){
@@ -100,13 +102,6 @@ void Raster::swap(float& x1, float& y1, float& x2, float& y2){
 }
 
 void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor){
-    //check and resize the value of points which are outside the plane 
-    x1 = fmin(x1, width);
-    x2 = fmin(x2, width);
-    y1 = fmin(y1, height);
-    y2 = fmin(y2, height);
-
-
     //horizontal line
     if(y1 == y2){
         int y = y1;
