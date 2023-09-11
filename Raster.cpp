@@ -47,16 +47,11 @@ Color Raster::getColorPixel(int x, int y){
 void Raster::setColorPixel(int x, int y, Color pFillColor){
     int w = getWidth();
     int h = getHeight();
-    if(x >= w || y >=h || x <0 || y < 0){
+    if(x >= w || y >=h || x < 0 || y < 0){
         return;
     }
     int index = ( h-1 - y) * w + x;
-
-    //cout << "index is: " << index << endl; 
-
     pixels[index] = pFillColor;
-
-    //pixels[index].printColor();
 }
 
 void Raster::clear(Color pFillColor){
@@ -70,7 +65,7 @@ void Raster::writeToPPM(){
     int w = getWidth();
     int h = getHeight();
 
-    ofstream MyFile("test.ppm");
+    ofstream MyFile("FRAME_BUFFER.ppm");
 
     MyFile << "P3" << endl;
     MyFile << w << " " << h << endl;

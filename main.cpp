@@ -38,7 +38,6 @@ int main(){
     //     }
     // }
 
-    ras.drawLine_DDA(-10,-10, -9, -9, Red + Green);
+    ras.drawLine_DDA(-1,-2, 7, 21, Red + Green);
     ras.writeToPPM();
-    cout << "Aaaaaa";
 }
