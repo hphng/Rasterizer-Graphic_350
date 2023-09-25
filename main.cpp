@@ -27,17 +27,18 @@ int main(){
 
     Raster ras = Raster(20, 20, White);
 
-    for(int j = 0; j< 20; j++){
-        for(int i = 0; i < 20; i++){
-            if(j %2 == 0){
-                ras.setColorPixel(i, j, Red);
-            }
-            else{
-                ras.setColorPixel(i, j, Red + Green);
-            }
-        }
-    }
+    // for(int j = 0; j< 20; j++){
+    //     for(int i = 0; i < 20; i++){
+    //         if(j %2 == 0){
+    //             ras.setColorPixel(i, j, Red);
+    //         }
+    //         else{
+    //             ras.setColorPixel(i, j, Red + Green);
+    //         }
+    //     }
+    // }
 
-    ras.drawLine_DDA(1, 10, 2, 1, Red + Green);
+    ras.drawLine_DDA(0, -9, 15, 25, Green);
+    ras.drawLine_DDA(4, 4, -9, 4, Red);
     ras.writeToPPM();
 }

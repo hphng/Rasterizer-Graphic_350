@@ -116,16 +116,22 @@ void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColo
     float m = (y1 - y2)/(x1-x2);
     float b = y1 - m*x1;
 
-    swap(x1, y1, x2, y2);
-
     //checking with slope
     if(abs(m) <= 1){
+        cout << "in here";
+        if(x1 > x2){
+            swap(x1, y1, x2, y2);
+        }
         float y = y1;
         for(int x = x1; x <= x2; x++ ){
             setColorPixel(x, round(y), fillColor);
             y+= m;
         }
     }else{
+        cout << "not in here";
+        if(y2 < y1){
+            swap(x1, y1, x2, y2);
+        }
         m = (x2-x1)/(y2-y1);
         float x = x2;
         for(int y = y2; y>=y1; y--){
