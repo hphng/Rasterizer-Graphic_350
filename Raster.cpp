@@ -83,17 +83,13 @@ void Raster::writeToPPM(){
 }
 
 void Raster::swap(float& x1, float& y1, float& x2, float& y2){
-    if(x1 < x2){
-        return;
-    }
-    else{
-        float a = x1;
-        float b = y1;
-        x1 = x2;
-        y1 = y2;
-        x2 = a;
-        y2 = b;
-    }
+    float a = x1;
+    x1 = x2;
+    x2 = a;
+
+    float b = y1;
+    y1 = y2;
+    y2 = b;
 }
 
 void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor){
