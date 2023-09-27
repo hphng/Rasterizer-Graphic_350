@@ -39,9 +39,9 @@ int main(){
     //     }
     // }
 
-    // for(int i = 0; i < 100; i++){
-    //     ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
-    // }
+    for(int i = 0; i < 100; i++){
+        ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
+    }
 
     ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
     ras.drawLine_DDA_Interpolated(0, 99, 99, 0, Black, Blue);
