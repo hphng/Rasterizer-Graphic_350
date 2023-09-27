@@ -3,6 +3,7 @@
 #include<cmath>
 #include "Color.cpp"
 #include "Raster.cpp"
+#include "Vector2.cpp"
 using namespace std;
 
 int main(){
@@ -25,7 +26,7 @@ int main(){
     red.printColor();
     black.printColor();
 
-    Raster ras = Raster(20, 20, White);
+    Raster ras = Raster(100, 100, White);
 
     // for(int j = 0; j< 20; j++){
     //     for(int i = 0; i < 20; i++){
@@ -38,7 +39,12 @@ int main(){
     //     }
     // }
 
-    ras.drawLine_DDA(0, -9, 15, 25, Green);
-    ras.drawLine_DDA(4, 4, -9, 4, Red);
+    // for(int i = 0; i < 100; i++){
+    //     ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
+    // }
+
+    ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
+    ras.drawLine_DDA_Interpolated(0, 99, 99, 0, Black, Blue);
+    //ras.drawLine_DDA(10, 1, 10, 19, Red);
     ras.writeToPPM();
 }
