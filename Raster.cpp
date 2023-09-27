@@ -1,6 +1,7 @@
 #include "Raster.h"
 #include <iostream>
 #include <fstream>
+#include "Vector2.h"
 #include "Color.h"
 #include <cmath>
 using namespace std;
@@ -74,7 +75,9 @@ void Raster::writeToPPM(){
     for(int j = h-1; j >= 0; j--){
         for(int i = 0; i < w; i++){
             Color index = getColorPixel(i, j);
-            MyFile << index.red * 255 << " " << index.green * 255 << " " << index.blue * 255 << " ";
+            MyFile << int(index.red * 255) << " "; 
+            MyFile << int(index.green * 255) << " ";
+            MyFile << int(index.blue * 255) << " ";
         }
         MyFile << endl;
     }
@@ -90,6 +93,20 @@ void Raster::swap(float& x1, float& y1, float& x2, float& y2){
     float b = y1;
     y1 = y2;
     y2 = b;
+}
+
+void Raster::swap_Interpolated(float& x1, float& y1, float& x2, float& y2, Color& color1, Color& color2){
+    float a = x1;
+    x1 = x2;
+    x2 = a;
+
+    float b = y1;
+    y1 = y2;
+    y2 = b;
+
+    Color c = color1;
+    color1 = color2;
+    color2 = c;
 }
 
 void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor){
@@ -139,5 +156,83 @@ void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColo
             x-=m;
         }
     }
+}
 
+void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, Color color1, Color color2){
+    //horizontal line
+    if(y1 == y2){
+        int y = y1;
+        int l = fmin(x1, x2);
+        int r = fmax(x1, x2);
+
+        for(int i = l; i <=r; i++){
+
+            float ratio = float((i-l))/(r-l);
+            //cout << ratio << endl;
+            Color interpolatedColor = color2*ratio + color1*(1.0 - ratio);
+            setColorPixel(i, y, interpolatedColor);
+        }
+        return;
+    //vertical line
+    } else if(x1 == x2){
+        int x = x1;
+        int b = fmin(y1, y2);
+        int t = fmax(y1, y2);
+        for(int i = b; i <=t; i++){
+
+            float ratio = float((i-b))/(t-b);
+            //cout << ratio << endl;
+            Color interpolatedColor = color2 * ratio + color1*(1.0 - ratio); 
+            setColorPixel(x, i, interpolatedColor);
+        }
+        return;
+    }
+
+    float m = (y1 - y2)/(x1-x2);
+    float b = y1 - m*x1;
+
+    //checking with slope
+    if(abs(m) <= 1){
+        cout << "in here";
+        if(x1 > x2){
+            swap_Interpolated(x1, y1, x2, y2, color1, color2);
+        }
+            Vector2 point1 = Vector2(x1, y1);
+            Vector2 point2 = Vector2(x2, y2);
+
+        float y = y1;
+        for(int x = x1; x <= x2; x++ ){
+            Vector2 pointp = Vector2(x, y);
+
+            Vector2 point12 = point2 - point1;
+            Vector2 point1p = pointp - point1;
+
+            float ratio = point1p.magnitude()/point12.magnitude();
+            cout << "ratio: " << ratio << endl;
+            Color interpolatedColor = color2 * ratio + color1*(1.0 - ratio); 
+            setColorPixel(x, round(y), interpolatedColor);
+            y+= m;
+        }
+    }else{
+        cout << "not in here";
+        if(y2 < y1){
+            swap_Interpolated(x1, y1, x2, y2, color1, color2);
+        }
+        Vector2 point1 = Vector2(x1, y1);
+        Vector2 point2 = Vector2(x2, y2);
+
+        m = (x2-x1)/(y2-y1);
+        float x = x2;
+        for(int y = y2; y>=y1; y--){
+            Vector2 pointp = Vector2(x, y);
+
+            Vector2 point12 = point2 - point1;
+            Vector2 point1p = pointp - point1;
+
+            float ratio = point1p.magnitude()/point12.magnitude();
+            Color interpolatedColor = color2 * ratio + color1*(1.0 - ratio); 
+            setColorPixel(round(x), y, interpolatedColor);
+            x-=m;
+        }
+    }
 }

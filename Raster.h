@@ -17,8 +17,10 @@ public:
     void clear(Color pFillColor);
     void writeToPPM();
 
-    void drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor);
     void swap(float& x1, float& y1, float& x2, float& y2);
+    void swap_Interpolated(float& x1, float& y1, float& x2, float& y2, Color& color1, Color& color2);
+    void drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor);
+    void drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, Color color1, Color color2);
 
 private:
     int width;
