@@ -25,6 +25,7 @@ public:
     void drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, Color color1, Color color2);
 
     void drawTriangle2D_DotProduct(Triangle2D tri);
+    void drawTriangle_Barycentric(Triangle2D T);
 
 private:
     int width;

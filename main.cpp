@@ -38,8 +38,8 @@ int main(){
 
     //ras.drawLine_DDA(10, 1, 10, 19, Red);
 
-    Triangle2D myTriangle(Vector2(2, 15), Vector2(72, 10), Vector2(45,80), Red + Green, Red, Red);
-    ras.drawTriangle2D_DotProduct(myTriangle);
+    Triangle2D myTriangle(Vector2(2, 15), Vector2(72, 10), Vector2(45,80), Red, Green, Blue);
+    ras.drawTriangle_Barycentric(myTriangle);
 
     ras.writeToPPM();
 }
