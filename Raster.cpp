@@ -277,3 +277,27 @@ void Raster::drawTriangle2D_DotProduct(Triangle2D tri){
 
     cout << "success!" << endl;
 }
+
+void Raster::drawTriangle_Barycentric(Triangle2D T){
+    int h = getHeight();
+    int w = getWidth();
+
+    int maxH = fmax(fmax(T.v1.x, T.v2.x), T.v3.x);
+    int minH = fmin(fmin(T.v1.x, T.v2.x), T.v3.x);
+    int maxW = fmax(fmax(T.v1.y, T.v2.y), T.v3.y);
+    int minW = fmin(fmin(T.v1.y, T.v2.y), T.v3.y);
+
+    for(int i = 0; i < h; i++){
+        for(int j = 0; j < w; j++){
+            Vector2 p(i, j);
+            float w1, w2, w3;
+            T.calculateBarycentricCoordinates(p, w1, w2, w3);
+
+            if(w1 >= 0 && w2 >=0 && w3 >= 0){
+ 
+                Color fill = T.c1*w1 + T.c2*w2 + T.c3*w3;
+                setColorPixel(i, j, fill);
+            }
+        }
+    }
+}
