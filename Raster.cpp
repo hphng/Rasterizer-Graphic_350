@@ -2,6 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "Vector2.h"
+#include "Triangle2D.h"
 #include "Color.h"
 #include <cmath>
 using namespace std;
@@ -235,4 +236,44 @@ void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, C
             x-=m;
         }
     }
+}
+
+void Raster::drawTriangle2D_DotProduct(Triangle2D tri){
+    int h = getHeight();
+    int w = getWidth();
+
+    Vector2 edge13 = tri.v1 - tri.v3;
+    Vector2 edge21 = tri.v2 - tri.v1;
+    Vector2 edge32 = tri.v3 - tri.v2;
+
+    Vector2 perp13 = edge13.perpendicular();
+    Vector2 perp21 = edge21.perpendicular();
+    Vector2 perp32 = edge32.perpendicular();
+
+
+    int maxH = fmax(fmax(tri.v1.x, tri.v2.x), tri.v3.x);
+    int minH = fmin(fmin(tri.v1.x, tri.v2.x), tri.v3.x);
+    int maxW = fmax(fmax(tri.v1.y, tri.v2.y), tri.v3.y);
+    int minW = fmin(fmin(tri.v1.y, tri.v2.y), tri.v3.y);
+
+
+    for(int i = minH; i < maxH; i++){
+        for(int j = minW; j < maxW; j++){
+            Vector2 p = Vector2(i, j);
+            
+            Vector2 g13 = p - tri.v1;
+            Vector2 g21 = p - tri.v2;
+            Vector2 g32 = p - tri.v3;
+
+            float result13 = perp13.dot(g13);
+            float result21 = perp21.dot(g21);
+            float result32 = perp32.dot(g32);
+
+            if(result13 >= 0 && result21 >= 0 && result32 >= 0){
+                setColorPixel(i, j, tri.c1);
+            }
+        }
+    }
+
+    cout << "success!" << endl;
 }
