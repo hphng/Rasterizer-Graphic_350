@@ -4,6 +4,7 @@
 #include "Color.cpp"
 #include "Raster.cpp"
 #include "Vector2.cpp"
+#include "Triangle2D.cpp"
 using namespace std;
 
 int main(){
@@ -28,23 +29,17 @@ int main(){
 
     Raster ras = Raster(100, 100, White);
 
-    // for(int j = 0; j< 20; j++){
-    //     for(int i = 0; i < 20; i++){
-    //         if(j %2 == 0){
-    //             ras.setColorPixel(i, j, Red);
-    //         }
-    //         else{
-    //             ras.setColorPixel(i, j, Red + Green);
-    //         }
-    //     }
+    // for(int i = 0; i < 100; i++){
+    //     ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
     // }
 
-    for(int i = 0; i < 100; i++){
-        ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
-    }
+    // ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
+    // ras.drawLine_DDA_Interpolated(0, 99, 99, 0, Black, Blue);
 
-    ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
-    ras.drawLine_DDA_Interpolated(0, 99, 99, 0, Black, Blue);
     //ras.drawLine_DDA(10, 1, 10, 19, Red);
+
+    Triangle2D myTriangle(Vector2(2, 15), Vector2(72, 10), Vector2(45,80), Red + Green, Red, Red);
+    ras.drawTriangle2D_DotProduct(myTriangle);
+
     ras.writeToPPM();
 }
