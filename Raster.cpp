@@ -136,7 +136,6 @@ void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColo
 
     //checking with slope
     if(abs(m) <= 1){
-        cout << "in here";
         if(x1 > x2){
             swap(x1, y1, x2, y2);
         }
@@ -146,7 +145,6 @@ void Raster::drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColo
             y+= m;
         }
     }else{
-        cout << "not in here";
         if(y2 < y1){
             swap(x1, y1, x2, y2);
         }
@@ -169,7 +167,6 @@ void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, C
         for(int i = l; i <=r; i++){
 
             float ratio = float((i-l))/(r-l);
-            //cout << ratio << endl;
             Color interpolatedColor = color2*ratio + color1*(1.0 - ratio);
             setColorPixel(i, y, interpolatedColor);
         }
@@ -182,7 +179,6 @@ void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, C
         for(int i = b; i <=t; i++){
 
             float ratio = float((i-b))/(t-b);
-            //cout << ratio << endl;
             Color interpolatedColor = color2 * ratio + color1*(1.0 - ratio); 
             setColorPixel(x, i, interpolatedColor);
         }
@@ -194,7 +190,6 @@ void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, C
 
     //checking with slope
     if(abs(m) <= 1){
-        cout << "in here";
         if(x1 > x2){
             swap_Interpolated(x1, y1, x2, y2, color1, color2);
         }
@@ -209,13 +204,11 @@ void Raster::drawLine_DDA_Interpolated(float x1, float y1, float x2, float y2, C
             Vector2 point1p = pointp - point1;
 
             float ratio = point1p.magnitude()/point12.magnitude();
-            cout << "ratio: " << ratio << endl;
             Color interpolatedColor = color2 * ratio + color1*(1.0 - ratio); 
             setColorPixel(x, round(y), interpolatedColor);
             y+= m;
         }
     }else{
-        cout << "not in here";
         if(y2 < y1){
             swap_Interpolated(x1, y1, x2, y2, color1, color2);
         }
@@ -274,8 +267,6 @@ void Raster::drawTriangle2D_DotProduct(Triangle2D tri){
             }
         }
     }
-
-    cout << "success!" << endl;
 }
 
 void Raster::drawTriangle_Barycentric(Triangle2D T){
@@ -287,8 +278,8 @@ void Raster::drawTriangle_Barycentric(Triangle2D T){
     int maxW = fmax(fmax(T.v1.y, T.v2.y), T.v3.y);
     int minW = fmin(fmin(T.v1.y, T.v2.y), T.v3.y);
 
-    for(int i = 0; i < h; i++){
-        for(int j = 0; j < w; j++){
+    for(int i = minH; i < maxH; i++){
+        for(int j = minW; j < maxW; j++){
             Vector2 p(i, j);
             float w1, w2, w3;
             T.calculateBarycentricCoordinates(p, w1, w2, w3);
