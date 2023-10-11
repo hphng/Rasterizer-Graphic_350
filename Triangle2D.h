@@ -1,7 +1,7 @@
 #ifndef TRIANGLE2D_H
 #define TRIANGLE2D_H
 
-#include "Vector2.h"
+#include "Vector.h"
 #include "Color.h"
 
 struct Triangle2D{

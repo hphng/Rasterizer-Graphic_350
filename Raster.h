@@ -3,7 +3,7 @@
 
 #include "Color.h"
 #include "Triangle2D.h"
-#include "Vector2.h"
+#include "Vector.h"
 class Raster
 {
 public:

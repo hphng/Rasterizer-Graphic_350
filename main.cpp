@@ -3,7 +3,7 @@
 #include<cmath>
 #include "Color.cpp"
 #include "Raster.cpp"
-#include "Vector2.cpp"
+#include "Vector.cpp"
 #include "Triangle2D.cpp"
 using namespace std;
 
