@@ -13,10 +13,11 @@ Vector2::Vector2(float x, float y){
 }
 
 Vector2 Vector2::operator*(const float scalar){
-    x = x * scalar;
-    y = y * scalar;
+    Vector2 result;
 
-    Vector2 result = Vector2(x, y);
+    result.x = x * scalar;
+    result.y = y * scalar;
+
     return result;
 }
 

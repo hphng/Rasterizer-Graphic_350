@@ -33,12 +33,12 @@ int main(){
     //     ras.drawLine_DDA_Interpolated(i, 99, i, 0, Green + Red, Red);
     // }
 
-    // ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
-    // ras.drawLine_DDA_Interpolated(0, 99, 99, 0, Black, Blue);
+    ras.drawLine_DDA_Interpolated(99,99,-10,10, Green + Red, Red);
+    ras.drawLine_DDA_Interpolated(-30, 10, 120, 10, Black, Blue);
 
     //ras.drawLine_DDA(10, 1, 10, 19, Red);
 
-    Triangle2D myTriangle(Vector2(2, 15), Vector2(72, 10), Vector2(45,80), Red, Red + Green, Red + Green + Green);
+    Triangle2D myTriangle(Vector2(-30, 15), Vector2(120, 15), Vector2(45, 90), Red, Red + Green, Red + Green + Green);
     ras.drawTriangle_Barycentric(myTriangle);
 
     //ras.drawLine_DDA_Interpolated(2,10,2,70,Red,Green);
