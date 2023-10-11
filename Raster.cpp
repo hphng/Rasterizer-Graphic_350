@@ -1,7 +1,7 @@
 #include "Raster.h"
 #include <iostream>
 #include <fstream>
-#include "Vector2.h"
+#include "Vector.h"
 #include "Triangle2D.h"
 #include "Color.h"
 #include <cmath>
