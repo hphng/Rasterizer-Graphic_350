@@ -2,7 +2,7 @@
 #include <iostream>
 #include <fstream>
 #include "Vector.h"
-#include "Triangle2D.h"
+#include "Triangle.h"
 #include "Color.h"
 #include <cmath>
 using namespace std;

@@ -2,7 +2,7 @@
 #define RASTER_H
 
 #include "Color.h"
-#include "Triangle2D.h"
+#include "Triangle.h"
 #include "Vector.h"
 class Raster
 {

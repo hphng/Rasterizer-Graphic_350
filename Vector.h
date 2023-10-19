@@ -37,6 +37,8 @@ struct Vector4{
     float magnitude();
     float dot(Vector4 v);
     Vector4 normalize();
+
+    void printVector4();
 };
 
 #endif
