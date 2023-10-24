@@ -269,7 +269,9 @@ void Raster::drawTriangle2D_DotProduct(Triangle2D tri){
     }
 }
 
-void Raster::drawTriangle_Barycentric(Triangle2D T){
+void Raster::drawTriangle3D_Barycentric(Triangle3D T3D){
+
+    Triangle2D T(T3D);
     int h = getHeight();
     int w = getWidth();
 
@@ -290,5 +292,11 @@ void Raster::drawTriangle_Barycentric(Triangle2D T){
                 setColorPixel(i, j, fill);
             }
         }
+    }
+}
+
+void Raster::drawModel(Model model){
+    for(int i = 0; i < model.numTriangles(); i++){
+        drawTriangle3D_Barycentric(model[i]);
     }
 }

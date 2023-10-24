@@ -18,6 +18,16 @@ Triangle2D::Triangle2D(Vector2 v1, Vector2 v2, Vector2 v3, Color c1, Color c2, C
     this->c3 = c3;
 }
 
+Triangle2D::Triangle2D(Triangle3D T){
+    v1 = Vector2(T.v1.x, T.v1.y);
+    v2 = Vector2(T.v2.x, T.v2.y);
+    v3 = Vector2(T.v3.x, T.v3.y);
+
+    c1 = T.c1;
+    c2 = T.c2;
+    c3 = T.c3;
+}
+
 void Triangle2D::calculateBarycentricCoordinates(Vector2 p, float &lambda1, float &lambda2, float &lambda3)
 {
     float areaAll = determinant(v2 - v3, v1 - v3);
