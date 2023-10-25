@@ -76,9 +76,9 @@ void Raster::writeToPPM(){
     for(int j = h-1; j >= 0; j--){
         for(int i = 0; i < w; i++){
             Color index = getColorPixel(i, j);
-            MyFile << int(index.red * 255) << " "; 
-            MyFile << int(index.green * 255) << " ";
-            MyFile << int(index.blue * 255) << " ";
+            MyFile << round(index.red * 255) << " "; 
+            MyFile << round(index.green * 255) << " ";
+            MyFile << round(index.blue * 255) << " ";
         }
         MyFile << endl;
     }
@@ -280,8 +280,8 @@ void Raster::drawTriangle3D_Barycentric(Triangle3D T3D){
     int maxW = fmax(fmax(T.v1.y, T.v2.y), T.v3.y);
     int minW = fmin(fmin(T.v1.y, T.v2.y), T.v3.y);
 
-    for(int i = minH; i < maxH; i++){
-        for(int j = minW; j < maxW; j++){
+    for(int i = minH; i <= maxH; i++){
+        for(int j = minW; j <= maxW; j++){
             Vector2 p(i, j);
             float w1, w2, w3;
             T.calculateBarycentricCoordinates(p, w1, w2, w3);
