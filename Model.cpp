@@ -60,12 +60,22 @@ void Model::readFromOBJFile(string filepath, Color pFillColor){
             }
 
             if(check == "v"){
+
                 float x = coordinate[0];
                 float y = coordinate[1];
                 float z = coordinate[2];
                 float w = 1;
-                Vector4 vertex(x, y, z, w);
+                
+                //check if quad or tri
+                if(coordinate.size() == 4){
+                    float t = coordinate[3];
 
+                    //if quad, need to push points number (1, 2, 3) and (1, 3, 4)
+                    Vector4 v(x, z, t, w); //point number 1, 3, 4
+                    points.push_back(v);
+                }
+                //point number 1, 2, 3 for both tri and quad
+                Vector4 vertex(x, y, z, w); 
                 points.push_back(vertex);
             }
             else if(check == "f"){

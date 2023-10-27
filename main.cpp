@@ -58,9 +58,9 @@ int main()
 
     Raster myRaster(100, 100, White);
     Model teapot = Model();
-    teapot.readFromOBJFile("./teapot.obj", Red);
+    teapot.readFromOBJFile("./teapot.obj", Black);
 
-    Matrix4 m = Translate3D(50, 50, 0) *RotateZ3D(-45.07) * Scale3D(0.5, 0.5, 0.5);
+    Matrix4 m = Translate3D(50, 50, 0) * RotateZ3D(-45.07) * Scale3D(0.5, 0.5, 0.5);
     teapot.transform(m);
 
     myRaster.drawModel(teapot);
