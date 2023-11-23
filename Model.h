@@ -17,6 +17,7 @@ public:
     Triangle3D operator[](int i);
     void transform(Matrix4 m);
     void readFromOBJFile(string filepath, Color pFillColor);
+    void homogenize();
 
 private:
     vector<Triangle3D> triangles;

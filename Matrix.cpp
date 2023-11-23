@@ -127,8 +127,42 @@ Matrix4 LookAt(Vector4 eye, Vector4 spot, Vector4 up){
     Vector4 look = spot - eye;
     Vector4 right = look.cross(up);
     Vector4 newUp = right.cross(look);
-    Matrix4 res(look.x, right.x, newUp.x, -eye.x,
-                look.y, right.y, newUp.y, -eye.y,
-                look.z, right.z, newUp.z, -eye.z,
-                look.w, right.w, newUp.w, 1);
+
+    look.normalize();
+    right.normalize();
+    newUp.normalize();
+
+    Matrix4 orthonormal(right.x, right.y, right.z, 0,
+                newUp.x, newUp.y, newUp.z, 0,
+                -look.x, -look.y, -look.z, 0,
+                0, 0, 0, 1);
+    Matrix4 res = orthonormal *Translate3D(-eye.x, -eye.y, -eye.z);
+
+    return res;
+}
+
+Matrix4 Orthographic(float minX, float maxX, float minY, float maxY, float minZ, float maxZ){
+    Matrix4 defa;
+    Matrix4 scale = Scale3D(2/(maxX - minX), 2/(maxY - minY), 2/(maxZ - minZ));
+    Matrix4 translate = Translate3D(-(minX + maxX)/2, -(minY + maxY)/2, -(minZ + maxZ)/2);
+
+    Matrix4 res = scale * translate * defa;
+
+    return res;
+}
+
+Matrix4 Perspective(float fovY, float aspect, float nearZ, float farZ){
+    float a = tan(fovY/2);
+    float F = 1/a;
+
+    float xCano = F/aspect;
+    float yCano = F;
+    float zCano1 = (farZ + nearZ)/(nearZ - farZ);
+    float zCano2 = (2 * nearZ * farZ)/(nearZ - farZ);
+
+    Matrix4 res(xCano, 0, 0, 0,
+                0, F, 0, 0,
+                0, 0, zCano1, zCano2,
+                0, 0, -1, 0);
+    return res;
 }

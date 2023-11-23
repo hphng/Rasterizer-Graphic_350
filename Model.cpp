@@ -105,3 +105,16 @@ void Model::readFromOBJFile(string filepath, Color pFillColor){
         file.close();
     }
 }
+
+void Model::homogenize(){
+    for(int i = 0; i < triangles.size(); i++){
+        float div1 = 1/triangles[i].v1.w;
+        triangles[i].v1  = triangles[i].v1 * div1;
+
+        float div2 = 1/triangles[i].v2.w;
+        triangles[i].v2  = triangles[i].v2 * div2;
+
+        float div3 = 1/triangles[i].v3.w;
+        triangles[i].v3  = triangles[i].v3 * div3;
+    }
+}
