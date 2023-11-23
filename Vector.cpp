@@ -162,6 +162,16 @@ Vector4 Vector4::normalize()
     return result;
 }
 
+Vector4 Vector4::cross(Vector4 v){
+    float resX = y * v.z - z * v.y;
+    float resY = z * v.x - x * v.z;
+    float resZ = x * v.y - y * v.x;
+
+    Vector4 result(resX, resY, resZ, 0);
+    
+    return result;
+}
+
 void Vector4::printVector4(){
     cout << "Vector4: " << endl;
     cout << x << endl << y << endl << z << endl << w << endl;
