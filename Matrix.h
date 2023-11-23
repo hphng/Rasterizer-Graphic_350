@@ -27,4 +27,6 @@ Matrix4 RotateY3D(float degrees);
 Matrix4 RotateZ3D(float degrees);
 Matrix4 Rotate3D(float degreesX, float degreesY, float degreesZ);
 Matrix4 Rotate3D(float degrees, Vector4 vec);
+
+Matrix4 LookAt(Vector4 eye, Vector4 spot, Vector4 up);
 #endif

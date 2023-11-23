@@ -117,7 +117,18 @@ Matrix4 Rotate3D(float degrees, Vector4 vec){
     float a = atanf(vec.x/vec.z);
     float b = acosf(vec.y/vec.magnitude());
 
-    Matrix4 result = RotateY3D(a) * RotateX3D(b) * RotateY3D(degrees) * RotateX3D(-b) * RotateY3D(-a);
+    Matrix4 result = RotateY3D(-a) * RotateX3D(-b) * RotateY3D(degrees) * RotateX3D(b) * RotateY3D(a);
 
     return result;
+}
+
+Matrix4 LookAt(Vector4 eye, Vector4 spot, Vector4 up){
+
+    Vector4 look = spot - eye;
+    Vector4 right = look.cross(up);
+    Vector4 newUp = right.cross(look);
+    Matrix4 res(look.x, right.x, newUp.x, -eye.x,
+                look.y, right.y, newUp.y, -eye.y,
+                look.z, right.z, newUp.z, -eye.z,
+                look.w, right.w, newUp.w, 1);
 }

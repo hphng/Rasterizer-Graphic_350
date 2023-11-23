@@ -38,6 +38,8 @@ struct Vector4{
     float dot(Vector4 v);
     Vector4 normalize();
 
+    Vector4 cross(Vector4 v);
+
     void printVector4();
 };
 
