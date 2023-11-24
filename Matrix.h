@@ -33,4 +33,6 @@ Matrix4 LookAt(Vector4 eye, Vector4 spot, Vector4 up);
 Matrix4 Orthographic(float minX, float maxX, float minY, float maxY, float minZ, float maxZ);
 Matrix4 Perspective(float fovY, float aspect, float nearZ, float farZ);
 
+Matrix4 Viewport(float x, float y, float width, float height);
+
 #endif

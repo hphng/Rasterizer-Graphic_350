@@ -9,6 +9,9 @@
 #include "Model.cpp"
 using namespace std;
 
+#define WIDTH 100
+#define HEIGHT 100
+
 int main()
 {
 
@@ -56,17 +59,48 @@ int main()
     // myRaster.writeToPPM();
     //_________________________________________
 
-    Raster myRaster(100, 100, White);
-    Model teapot = Model();
-    teapot.readFromOBJFile("./teapot.obj", Black);
+    // Raster myRaster(100, 100, White);
+    // Model teapot = Model();
+    // teapot.readFromOBJFile("./teapot.obj", Black);
 
-    Matrix4 m = Translate3D(50, 50, 0) * RotateZ3D(-45.07) * Scale3D(0.5, 0.5, 0.5);
-    teapot.transform(m);
+    // Matrix4 m = Translate3D(50, 50, 0) * RotateZ3D(-45.07) * Scale3D(0.5, 0.5, 0.5);
+    // teapot.transform(m);
+
+    // myRaster.drawModel(teapot);
+    
+    // myRaster.writeToPPM();
+    //___________________________________________
+    
+    //checkpoint 4:
+    Raster myRaster(WIDTH, HEIGHT, White);
+
+    Model teapot;
+    teapot.readFromOBJFile("./teapot.obj", Red);
+
+    //Model Matrix
+    Matrix4 modelMatrixTeapot = Translate3D(50, 50, -40) * RotateZ3D(45.0) * Scale3D(0.5, 0.5, 0.5);
+
+
+    //View Matrix
+    Matrix4 viewMatrix = LookAt(Vector4(50, 50, 30, 1), Vector4(50, 50, -40, 1), Vector4(0, 1, 0, 0));
+
+    // +++teapot.transform(viewMatrix * modelMatrixTeapot);
+
+    //Perspective Matrix
+    Matrix4 perspectiveMatrix = Perspective(90.0, myRaster.getWidth()/ myRaster.getHeight(), 0.01, 1000.0);
+
+    //Viewport Matrix
+    Matrix4 viewportMatrix = Viewport(0, 0, myRaster.getWidth(), myRaster.getHeight());
+
+    teapot.transform(perspectiveMatrix * viewMatrix * modelMatrixTeapot);
+
+    teapot.homogenize();
+
+    teapot.transform(viewportMatrix);
 
     myRaster.drawModel(teapot);
-    
-    myRaster.writeToPPM();
 
+    myRaster.writeToPPM();
 
     return 0;
 }
