@@ -127,16 +127,21 @@ Matrix4 LookAt(Vector4 eye, Vector4 spot, Vector4 up){
     Vector4 look = spot - eye;
     Vector4 right = look.cross(up);
     Vector4 newUp = right.cross(look);
+       
+    newUp.printVector4();
 
-    look.normalize();
-    right.normalize();
-    newUp.normalize();
+    look = look.normalize();
+    right = right.normalize();
+    newUp = newUp.normalize();
 
-    Matrix4 orthonormal(right.x, right.y, right.z, 0,
-                newUp.x, newUp.y, newUp.z, 0,
-                -look.x, -look.y, -look.z, 0,
-                0, 0, 0, 1);
-    Matrix4 res = orthonormal *Translate3D(-eye.x, -eye.y, -eye.z);
+    newUp.printVector4();
+
+
+    Matrix4 orthonormal(right.x, right.y, right.z, 0.0,
+                newUp.x, newUp.y, newUp.z, 0.0,
+                -look.x, -look.y, -look.z, 0.0,
+                0.0, 0.0, 0.0, 1.0);
+    Matrix4 res = orthonormal * Translate3D(-eye.x, -eye.y, -eye.z);
 
     return res;
 }
@@ -155,14 +160,18 @@ Matrix4 Perspective(float fovY, float aspect, float nearZ, float farZ){
     float a = tan(fovY/2);
     float F = 1/a;
 
-    float xCano = F/aspect;
-    float yCano = F;
-    float zCano1 = (farZ + nearZ)/(nearZ - farZ);
-    float zCano2 = (2 * nearZ * farZ)/(nearZ - farZ);
+    float z1 = (farZ + nearZ)/(nearZ - farZ);
+    float z2 = (2 * nearZ * farZ)/(nearZ - farZ);
 
-    Matrix4 res(xCano, 0, 0, 0,
-                0, F, 0, 0,
-                0, 0, zCano1, zCano2,
-                0, 0, -1, 0);
+    Matrix4 res(F/aspect, 0.0, 0.0, 0.0,
+                0.0, F, 0.0, 0.0,
+                0.0, 0.0, z1, z2,
+                0.0, 0.0, -1.0, 0.0);
+    return res;
+}
+
+Matrix4 Viewport(float x, float y, float width, float height){
+    Matrix4 res = Translate3D(x, y, 0) * Scale3D(width, height, 1) * Scale3D(0.5, 0.5, 0.5) * Translate3D(1, 1, -1);
+
     return res;
 }
