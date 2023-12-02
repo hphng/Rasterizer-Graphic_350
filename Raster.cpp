@@ -306,6 +306,12 @@ void Raster::drawTriangle2D_DotProduct(Triangle2D tri){
 
 void Raster::drawTriangle3D_Barycentric(Triangle3D T3D){
 
+    if(!T3D.shouldDraw){
+        return;
+    }
+
+    bool check = T3D.shouldDraw;
+
     Triangle2D T(T3D);
     int h = getHeight();
     int w = getWidth();
@@ -330,7 +336,12 @@ void Raster::drawTriangle3D_Barycentric(Triangle3D T3D){
                 if(depth < getDepthPixel(i, j)){
                     setColorPixel(i, j, fill);
                     setDepthPixel(i, j, depth);
+
+                    // if(!check){
+                    //     setColorPixel(i, j, Blue);
+                    // }
                 }
+
             }
         }
     }

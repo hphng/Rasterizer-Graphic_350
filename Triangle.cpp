@@ -49,6 +49,8 @@ Triangle3D::Triangle3D()
     c1 = White;
     c2 = White;
     c3 = White;
+
+    shouldDraw = true;
 }
 
 Triangle3D::Triangle3D(Vector4 pV1, Vector4 pV2, Vector4 pV3, Color pC1, Color pC2, Color pC3){
@@ -59,6 +61,8 @@ Triangle3D::Triangle3D(Vector4 pV1, Vector4 pV2, Vector4 pV3, Color pC1, Color p
     c1 = pC1;
     c2 = pC2;
     c3 = pC3;
+
+    shouldDraw = true;
 }
 
 void Triangle3D::transform(Matrix4 m){

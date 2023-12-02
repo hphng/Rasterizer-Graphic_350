@@ -19,6 +19,8 @@ public:
     void readFromOBJFile(string filepath, Color pFillColor);
     void homogenize();
 
+    void performBackfaceCulling(Vector4 eye, Vector4 spot);
+
 private:
     vector<Triangle3D> triangles;
 };
