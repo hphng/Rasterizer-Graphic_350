@@ -25,7 +25,10 @@ Triangle3D Model::operator[](int i){
 
 void Model::transform(Matrix4 m){
     for(int i = 0; i < triangles.size(); i++){
-        triangles[i].transform(m);
+        if(triangles[i].shouldDraw){
+            triangles[i].transform(m);
+        }
+        //triangles[i].transform(m);
     }
 }
 
@@ -116,5 +119,22 @@ void Model::homogenize(){
 
         float div3 = 1/triangles[i].v3.w;
         triangles[i].v3  = triangles[i].v3 * div3;
+    }
+}
+
+void Model::performBackfaceCulling(Vector4 eye, Vector4 spot){
+    Vector4 look = spot - eye;
+
+    for(int i = 0; i < numTriangles(); i++){
+        Triangle3D t = triangles[i];
+
+        Vector4 e12 = t.v3 - t.v2;
+        Vector4 e13 = t.v1 - t.v2;
+
+        Vector4 n = e13.cross(e12).normalize();
+        if(n.dot(look) > 0.0){
+            triangles[i].shouldDraw = false;
+        }
+ 
     }
 }
