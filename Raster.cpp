@@ -11,6 +11,7 @@ Raster::Raster(){
     this -> width = 0;
     this -> height = 0;
     this -> pixels = NULL;
+    this -> depthPixels = new float[width* height];
 }
 
 Raster::Raster(int pWidth, int pHeight, Color pFillColor){

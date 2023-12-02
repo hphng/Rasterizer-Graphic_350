@@ -74,11 +74,13 @@ int main()
     //checkpoint 4:
     Raster myRaster(WIDTH, HEIGHT, White);
 
-    Model teapot;
+    Model teapot, bunny;
     teapot.readFromOBJFile("./teapot.obj", Red);
+    bunny.readFromOBJFile("./bunny.obj", Blue);
 
     //Model Matrix
     Matrix4 modelMatrixTeapot = Translate3D(50, 50, -40) * RotateZ3D(45.0) * Scale3D(0.5, 0.5, 0.5);
+    Matrix4 modelMatrixBunny = Translate3D(70, 30, -60) * RotateZ3D(-20.0) * Scale3D(500, 500, 500);
 
 
     //View Matrix
@@ -87,18 +89,22 @@ int main()
     // +++teapot.transform(viewMatrix * modelMatrixTeapot);
 
     //Perspective Matrix
-    Matrix4 perspectiveMatrix = Perspective(90.0, myRaster.getWidth()/ myRaster.getHeight(), 0.01, 1000.0);
+    Matrix4 perspectiveMatrix = Perspective(70.0, myRaster.getWidth()/ myRaster.getHeight(), 0.01, 1000.0);
 
     //Viewport Matrix
     Matrix4 viewportMatrix = Viewport(0, 0, myRaster.getWidth(), myRaster.getHeight());
 
     teapot.transform(perspectiveMatrix * viewMatrix * modelMatrixTeapot);
+    bunny.transform(perspectiveMatrix * viewMatrix * modelMatrixBunny);
 
     teapot.homogenize();
+    bunny.homogenize();
 
     teapot.transform(viewportMatrix);
+    bunny.transform(viewportMatrix);
 
     myRaster.drawModel(teapot);
+    myRaster.drawModel(bunny);
 
     myRaster.writeToPPM();
 

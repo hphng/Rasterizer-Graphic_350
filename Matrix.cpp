@@ -2,6 +2,7 @@
 #include "Matrix.h"
 #include<iostream>
 #include<cmath>
+#include<math.h>
 
 using namespace std;
 Matrix4::Matrix4(){
@@ -157,7 +158,8 @@ Matrix4 Orthographic(float minX, float maxX, float minY, float maxY, float minZ,
 }
 
 Matrix4 Perspective(float fovY, float aspect, float nearZ, float farZ){
-    float a = tan(fovY/2);
+    float radian = M_PI /180 * fovY;
+    float a = tanf(radian/2);
     float F = 1/a;
 
     float z1 = (farZ + nearZ)/(nearZ - farZ);
