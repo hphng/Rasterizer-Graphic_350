@@ -33,7 +33,8 @@ public:
 private:
     int width;
     int height;
-    Color *pixels;
+    Color* pixels;
+    float* depthPixels;
 };
 
 #endif
