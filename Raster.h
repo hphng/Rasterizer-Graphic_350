@@ -20,6 +20,10 @@ public:
     void clear(Color pFillColor);
     void writeToPPM();
 
+    float getDepthPixel(int x, int y);
+    void setDepthPixel(int x, int y, float depth);
+    void clear(float depth);
+
     void swap(float &x1, float &y1, float &x2, float &y2);
     void swap_Interpolated(float &x1, float &y1, float &x2, float &y2, Color &color1, Color &color2);
     void drawLine_DDA(float x1, float y1, float x2, float y2, Color fillColor);

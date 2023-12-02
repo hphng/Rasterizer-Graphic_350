@@ -79,7 +79,7 @@ int main()
     bunny.readFromOBJFile("./bunny.obj", Blue);
 
     //Model Matrix
-    Matrix4 modelMatrixTeapot = Translate3D(50, 50, -40) * RotateZ3D(45.0) * Scale3D(0.5, 0.5, 0.5);
+    Matrix4 modelMatrixTeapot = Translate3D(50, 50, -60) * RotateZ3D(45.0) * Scale3D(0.5, 0.5, 0.5);
     Matrix4 modelMatrixBunny = Translate3D(70, 30, -60) * RotateZ3D(-20.0) * Scale3D(500, 500, 500);
 
 
