@@ -5,13 +5,14 @@
 #include "Triangle.h"
 #include "Color.h"
 #include <cmath>
+#include <limits>
 using namespace std;
 
 Raster::Raster(){
     this -> width = 0;
     this -> height = 0;
     this -> pixels = NULL;
-    this -> depthPixels = new float[width* height];
+    this -> depthPixels = NULL;
 }
 
 Raster::Raster(int pWidth, int pHeight, Color pFillColor){
@@ -20,14 +21,19 @@ Raster::Raster(int pWidth, int pHeight, Color pFillColor){
     
     int size = pWidth * pHeight;
     this -> pixels = new Color[size];
+    this -> depthPixels = new float[size];
+
+    float maxi = numeric_limits<float>::max();
 
     for(int i = 0; i < size; i++){
         pixels[i] = pFillColor;
+        depthPixels[i] = maxi;
     }
 }
 
 Raster::~Raster(){
     delete[] pixels;
+    delete[] depthPixels;
 }
 
 int Raster::getWidth(){
@@ -63,6 +69,34 @@ void Raster::clear(Color pFillColor){
         pixels[i] = pFillColor;
     }
 }
+
+//___________depth___________________
+float Raster::getDepthPixel(int x, int y){
+    int w = getWidth();
+    int h = getHeight();
+
+    int index = ( h-1 - y) * w + x;
+
+    return depthPixels[index];
+}
+
+void Raster::setDepthPixel(int x, int y, float depth){
+    int w = getWidth();
+    int h = getHeight();
+    if(x >= w || y >=h || x < 0 || y < 0){
+        return;
+    }
+    int index = ( h-1 - y) * w + x;
+    depthPixels[index] = depth;
+}
+
+void Raster::clear(float depth){
+    int size = *(&depthPixels + 1) - depthPixels;
+    for(int i = 0; i < size; i++){
+        depthPixels[i] = depth;
+    }
+}
+//___________end_of_depth____________
 
 void Raster::writeToPPM(){
     int w = getWidth();
@@ -290,7 +324,13 @@ void Raster::drawTriangle3D_Barycentric(Triangle3D T3D){
             if(w1 >= 0 && w2 >=0 && w3 >= 0){
  
                 Color fill = T.c1*w1 + T.c2*w2 + T.c3*w3;
-                setColorPixel(i, j, fill);
+                //setColorPixel(i, j, fill);
+
+                float depth = T3D.v1.z*w1 + T3D.v2.z*w2 + T3D.v3.z*w3;
+                if(depth < getDepthPixel(i, j)){
+                    setColorPixel(i, j, fill);
+                    setDepthPixel(i, j, depth);
+                }
             }
         }
     }
